@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover">
+    <title>赵嘉宇的个人空间</title>
+    <meta name="author" content="赵嘉宇">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <script>
+        (() => {
+            const saveToLocal = {
+                set: (key, value, ttl) => {
+                    if (!ttl) return
+                    const expiry = Date.now() + ttl * 86400000
+                    localStorage.setItem(key, JSON.stringify({ value, expiry }))
+                },
+                get: key => {
+                    const itemStr = localStorage.getItem(key)
+                    if (!itemStr) return undefined
+                    const { value, expiry } = JSON.parse(itemStr)
+                    if (Date.now() > expiry) {
+                        localStorage.removeItem(key)
+                        return undefined
+                    }
+                    return value
+                }
+            }
+
+            const activateDarkMode = () => document.documentElement.setAttribute('data-theme', 'dark')
+            const activateLightMode = () => document.documentElement.setAttribute('data-theme', 'light')
+            
+            window.btf = { activateDarkMode, activateLightMode, saveToLocal }
+            const theme = saveToLocal.get('theme')
+            theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        })()
+    </script>
+    <style>
+        :root {
+            --global-bg: #f8fafc;
+            --font-color: #334155;
+            --primary-color: #2563eb;
+            --secondary-color: #1e293b;
+            --accent-color: #3b82f6;
+            --card-background: #ffffff;
+            --text-color: #0f172a;
+            --light-text: #64748b;
+            --border-radius: 16px;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --card-box-shadow: 0 10px 30px -10px rgba(0,0,0,0.08);
+            --glass-bg: rgba(255, 255, 255, 0.75);
+            --scrollbar-color: #3b82f6;
+            --timeline-color: #e2e8f0;
+        }
+
+        [data-theme="dark"] {
+            --global-bg: #0b1120;
+            --font-color: #e2e8f0;
+            --primary-color: #60a5fa;
+            --secondary-color: #0f172a;
+            --accent-color: #3b82f6;
+            --card-background: #1e293b;
+            --text-color: #f8fafc;
+            --light-text: #94a3b8;
+            --card-box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+            --glass-bg: rgba(15, 23, 42, 0.75);
+            --timeline-color: #334155;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: var(--global-bg); color: var(--font-color);
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.8; scroll-behavior: smooth; cursor: none;
+            overflow-x: hidden;
+        }
+        a, button { cursor: none; } 
+
+        /* 顶部滚动进度条 */
+        #scroll-progress {
+            position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, #3b82f6, #60a5fa, #8b5cf6);
+            width: 0%; z-index: 10000; transition: width 0.1s ease-out;
+            box-shadow: 0 0 10px rgba(59,130,246,0.5);
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: var(--scrollbar-color); border-radius: 10px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+
+        /* 自定义光标 */
+        .cursor { position: fixed; width: 8px; height: 8px; background-color: var(--accent-color); border-radius: 50%; pointer-events: none; z-index: 99999; transform: translate(-50%, -50%); transition: transform 0.1s; }
+        .cursor-follower { position: fixed; width: 36px; height: 36px; border: 2px solid var(--accent-color); border-radius: 50%; pointer-events: none; z-index: 99998; transform: translate(-50%, -50%); transition: transform 0.2s ease-out, width 0.2s, height 0.2s; }
+        .cursor.hover { transform: translate(-50%, -50%) scale(0); }
+        .cursor-follower.hover { width: 60px; height: 60px; background: rgba(59,130,246,0.1); border-color: transparent; backdrop-filter: blur(2px); }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 2; }
+
+        /* 导航栏 */
+        #page-header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; transition: var(--transition); background-color: transparent; }
+        #page-header.nav-fixed {
+            background-color: var(--glass-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05); border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        #nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 0; transition: all 0.3s ease; }
+        #page-header.nav-fixed #nav { padding: 1rem 0; }
+        #blog-info .nav-site-title { color: var(--text-color); font-size: 1.5rem; font-weight: 800; text-decoration: none; letter-spacing: 1px;}
+        #menus .menus_items { display: flex; list-style: none; gap: 2.5rem; }
+        #menus .menus_item a { color: var(--text-color); text-decoration: none; font-size: 0.95rem; font-weight: 600; position: relative; padding: 0.5rem 0; }
+        #menus .menus_item a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: var(--accent-color); transition: width 0.3s ease; }
+        #menus .menus_item a:hover::after { width: 100%; }
+
+        /* 英雄区域 */
+        .hero { position: relative; min-height: 100vh; display: flex; align-items: center; background: linear-gradient(135deg, var(--secondary-color) 0%, #060b13 100%); color: #fff; overflow: hidden; padding-top: 60px;}
+        #tsparticles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: auto; }
+        .hero-content { display: flex; align-items: center; flex-wrap: wrap; z-index: 2; width: 100%; gap: 4rem; }
+        .hero-image { flex: 1; min-width: 300px; display: flex; justify-content: center; }
+        .avatar {
+            width: 260px; height: 260px; border-radius: 50%; overflow: hidden;
+            border: 4px solid rgba(255,255,255,0.1); box-shadow: 0 0 40px rgba(59,130,246,0.4);
+            position: relative;
+        }
+        .avatar::before {
+            content: ''; position: absolute; top: -5px; left: -5px; right: -5px; bottom: -5px;
+            background: conic-gradient(from 0deg, transparent 0 340deg, var(--accent-color) 360deg);
+            border-radius: 50%; animation: rotate 4s linear infinite; z-index: -1;
+        }
+        @keyframes rotate { 100% { transform: rotate(360deg); } }
+        .avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+        
+        .hero-info { flex: 1.5; min-width: 300px; }
+        .hero-info h1 { font-size: 4rem; font-weight: 800; margin-bottom: 1rem; background: linear-gradient(to right, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-info .typed-wrapper { font-size: 1.4rem; color: #60a5fa; height: 40px; margin-bottom: 2rem; font-family: monospace;}
+        
+        .contact-info { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+        .contact-item { background: rgba(255,255,255,0.05); padding: 0.6rem 1.2rem; border-radius: 50px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px); font-size: 0.95rem;}
+        .contact-item i { margin-right: 0.5rem; color: #60a5fa; }
+
+        /* 磁性按钮 */
+        .magnetic-btn {
+            display: inline-flex; align-items: center; justify-content: center; padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--accent-color), #2563eb); color: #fff;
+            border-radius: 50px; font-weight: 600; text-decoration: none; position: relative;
+            box-shadow: 0 10px 20px -10px rgba(59,130,246,0.6); transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+            overflow: hidden;
+        }
+        .magnetic-btn i { margin-right: 10px; }
+
+        /* 区块通用 */
+        section { padding: 8rem 0; position: relative; z-index: 2; }
+        .section-title { text-align: center; margin-bottom: 4rem; }
+        .section-title h2 { font-size: 2.5rem; font-weight: 800; color: var(--text-color); display: inline-block; position: relative; }
+        .section-title h2::after { content: ''; position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); width: 60px; height: 5px; background: var(--accent-color); border-radius: 5px; }
+
+        .grid-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
+        
+        /* 炫光边框卡片 (暗黑模式下呈现) */
+        .card-item {
+            background: var(--card-background); padding: 2.5rem; border-radius: var(--border-radius);
+            box-shadow: var(--card-box-shadow); border: 1px solid rgba(148, 163, 184, 0.1);
+            transform-style: preserve-3d; position: relative; z-index: 1;
+        }
+        [data-theme="dark"] .card-item.glow-card {
+            background: var(--card-background); overflow: hidden;
+        }
+        [data-theme="dark"] .card-item.glow-card::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: conic-gradient(transparent, transparent, transparent, var(--accent-color));
+            animation: borderRotate 4s linear infinite; z-index: -2; opacity: 0; transition: opacity 0.5s;
+        }
+        [data-theme="dark"] .card-item.glow-card::after {
+            content: ''; position: absolute; inset: 2px; background: var(--card-background); border-radius: calc(var(--border-radius) - 2px); z-index: -1;
+        }
+        [data-theme="dark"] .card-item.glow-card:hover::before { opacity: 1; }
+        @keyframes borderRotate { 100% { transform: rotate(360deg); } }
+
+        .card-item h3 { color: var(--text-color); margin-bottom: 1.2rem; font-size: 1.4rem; font-weight: 700; transform: translateZ(30px); }
+        .card-item h3 i { color: var(--primary-color); margin-right: 8px; }
+        .card-item p { color: var(--light-text); transform: translateZ(20px); font-size: 0.95rem; }
+
+        /* 技能图表与进度条组合 */
+        .skills-container { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+        .skill-group { margin-bottom: 2rem; }
+        .skill-group h4 { color: var(--text-color); margin-bottom: 1rem; font-size: 1.1rem; border-left: 4px solid var(--accent-color); padding-left: 10px;}
+        .skill-bar { margin-bottom: 1.2rem; }
+        .skill-info { display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.9rem; font-weight: 600; color: var(--font-color);}
+        .skill-progress { width: 100%; height: 8px; background-color: var(--timeline-color); border-radius: 4px; overflow: hidden; }
+        .skill-fill { height: 100%; background: linear-gradient(90deg, var(--accent-color), #8b5cf6); border-radius: 4px; width: 0; transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .visible .skill-fill { width: var(--skill-width, 100%); }
+        #skills-radar { width: 100%; height: 400px; }
+
+        /* 时间轴设计 */
+        .timeline { position: relative; max-width: 800px; margin: 0 auto; padding: 20px 0; }
+        .timeline::before { content: ''; position: absolute; top: 0; bottom: 0; left: 20px; width: 3px; background: var(--timeline-color); border-radius: 3px; }
+        .timeline-item { position: relative; margin-bottom: 3rem; padding-left: 60px; }
+        .timeline-dot {
+            position: absolute; left: 11px; top: 5px; width: 21px; height: 21px; border-radius: 50%;
+            background: var(--accent-color); border: 4px solid var(--global-bg);
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.2); transition: all 0.3s;
+        }
+        .timeline-item:hover .timeline-dot { transform: scale(1.3); box-shadow: 0 0 15px var(--accent-color); }
+        .timeline-date { font-size: 0.85rem; color: var(--accent-color); font-weight: 700; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px;}
+        .timeline-content { background: var(--card-background); padding: 1.5rem 2rem; border-radius: var(--border-radius); box-shadow: var(--card-box-shadow); border: 1px solid rgba(148, 163, 184, 0.1); }
+        .timeline-content h4 { color: var(--text-color); font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .timeline-content p { color: var(--light-text); font-size: 0.95rem; margin: 0; }
+
+        /* 标签药丸 */
+        .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1rem; transform: translateZ(20px);}
+        .tag { background: rgba(59,130,246,0.1); color: var(--accent-color); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; border: 1px solid rgba(59,130,246,0.2); }
+
+        /* 右侧工具栏 */
+        #rightside { position: fixed; right: 25px; bottom: 35px; z-index: 1000; opacity: 0; visibility: hidden; transition: var(--transition); display: flex; flex-direction: column; gap: 15px;}
+        #rightside.show { opacity: 1; visibility: visible; }
+        #rightside button { width: 48px; height: 48px; border-radius: 50%; background-color: var(--card-background); color: var(--text-color); border: 1px solid var(--timeline-color); box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; transition: var(--transition); font-size: 1.2rem; }
+        #rightside button:hover { background-color: var(--accent-color); color: #fff; transform: translateY(-5px); border-color: var(--accent-color); box-shadow: 0 8px 25px rgba(59,130,246,0.4);}
+
+        .fade-up { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 992px) {
+            .skills-container { grid-template-columns: 1fr; }
+            #skills-radar { height: 350px; }
+        }
+        @media (max-width: 768px) {
+            .cursor, .cursor-follower { display: none; }
+            body, a, button { cursor: auto; }
+            .hero-content { flex-direction: column; text-align: center; gap: 2rem;}
+            .contact-info { justify-content: center; }
+            #page-header .menus_items { display: none; }
+            .hero-info h1 { font-size: 2.8rem; }
+            section { padding: 5rem 0; }
+        }
+    </style>
+</head>
+<body>
+    <div id="scroll-progress"></div>
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <div class="page" id="body-wrap">
+        <header id="page-header">
+            <div class="container">
+                <nav id="nav">
+                    <span id="blog-info"><a class="nav-site-title" href="#home">Zhao.</a></span>
+                    <div id="menus">
+                        <div class="menus_items">
+                            <div class="menus_item"><a href="#home">首页</a></div>
+                            <div class="menus_item"><a href="#skills">能力栈</a></div>
+                            <div class="menus_item"><a href="#projects">实战项目</a></div>
+                            <div class="menus_item"><a href="#experience">经历</a></div>
+                            <div class="menus_item"><a href="#achievements">成果</a></div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <section id="home" class="hero">
+            <div id="tsparticles"></div>
+            <div class="container hero-content">
+                <div class="hero-info fade-up">
+                    <h1>赵嘉宇</h1>
+                    <div class="typed-wrapper"><span id="typed-text"></span></div>
+                    <div class="contact-info">
+                        <div class="contact-item"><i class="fas fa-envelope"></i> 2023055685@qq.com</div>
+                        <div class="contact-item"><i class="fas fa-university"></i> 南工大浦江学院 (2023-2027)</div>
+                        <div class="contact-item"><i class="fas fa-map-marker-alt"></i> 软件工程本科</div>
+                    </div>
+                    <a href="#" class="magnetic-btn"><i class="fas fa-file-pdf"></i> 获取完整简历</a>
+                </div>
+                <div class="hero-image fade-up" style="transition-delay: 0.2s;">
+                    <div class="avatar" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-perspective="1000">
+                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Zhao&backgroundColor=1e293b" alt="Avatar">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <div class="container">
+                <div class="section-title fade-up"><h2>核心能力栈</h2></div>
+                <div class="skills-container">
+                    <div class="skills-list fade-up">
+                        <div class="skill-group">
+                            <h4>AI与深度学习</h4>
+                            <div class="skill-bar"><div class="skill-info"><span>PyTorch / TensorFlow</span><span>80%</span></div><div class="skill-progress"><div class="skill-fill" style="--skill-width: 80%"></div></div></div>
+                            <div class="skill-bar"><div class="skill-info"><span>计算机视觉 (YOLOv8/v11, RT-DETR)</span><span>85%</span></div><div class="skill-progress"><div class="skill-fill" style="--skill-width: 85%"></div></div></div>
+                            <div class="skill-bar"><div class="skill-info"><span>模型量化与边缘部署</span><span>75%</span></div><div class="skill-progress"><div class="skill-fill" style="--skill-width: 75%"></div></div></div>
+                        </div>
+                        <div class="skill-group">
+                            <h4>软件开发</h4>
+                            <div class="skill-bar"><div class="skill-info"><span>Python / C++</span><span>90%</span></div><div class="skill-progress"><div class="skill-fill" style="--skill-width: 90%"></div></div></div>
+                            <div class="skill-bar"><div class="skill-info"><span>前端 (Vue/HTML/ECharts)</span><span>80%</span></div><div class="skill-progress"><div class="skill-fill" style="--skill-width: 80%"></div></div></div>
+                            <div class="skill-bar"><div class="skill-info"><span>后端生态 (Java/Spring)</span><span>65%</span></div><div class="skill-progress"><div class="skill-fill" style="--skill-width: 65%"></div></div></div>
+                        </div>
+                    </div>
+                    <div class="radar-box fade-up" style="transition-delay: 0.2s;">
+                        <div id="skills-radar"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <div class="container">
+                <div class="section-title fade-up"><h2>实战与科研项目</h2></div>
+                <div class="grid-layout" style="grid-template-columns: 1fr;">
+                    
+                    <div class="card-item glow-card fade-up" data-tilt data-tilt-max="3" data-tilt-speed="400">
+                        <h3><i class="fas fa-leaf"></i> 数智侦农：基于多模态数据融合的作物图像异常识别系统</h3>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 1rem;">
+                            <span style="font-weight: 600; color:var(--text-color);">前端开发 / 算法部署</span>
+                            <span style="background: rgba(59,130,246,0.1); color: var(--accent-color); padding: 2px 10px; border-radius: 12px; font-size: 0.85rem;">2025.03 - 2025.04</span>
+                        </div>
+                        <p><strong>技术突破：</strong>在 YOLO11 基础上引入 CAFM Attention 注意力机制，大幅提升小目标害虫检测精度。结合 RAG 技术构建农业垂域问答系统。</p>
+                        <p><strong>工程落地：</strong>基于 Vue 与 ECharts 搭建响应式监控大屏，使用 Mosaic 数据增强。最终实现系统识别响应延迟 <50ms，问答准确率达 95%。</p>
+                        <div class="tags">
+                            <span class="tag">YOLO11</span><span class="tag">CAFM Attention</span><span class="tag">Vue</span><span class="tag">RAG</span><span class="tag">ECharts</span>
+                        </div>
+                    </div>
+
+                    <div class="card-item glow-card fade-up" data-tilt data-tilt-max="3" data-tilt-speed="400">
+                        <h3><i class="fas fa-satellite"></i> 多维生态卫士：基于改进YOLO11的多模态巡航系统</h3>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 1rem;">
+                            <span style="font-weight: 600; color:var(--text-color);">核心算法优化</span>
+                            <span style="background: rgba(59,130,246,0.1); color: var(--accent-color); padding: 2px 10px; border-radius: 12px; font-size: 0.85rem;">2025.02 - 2025.04</span>
+                        </div>
+                        <p><strong>底层重构：</strong>融合 MobileNetV3 轻量级骨干网络与 Focal-EIoU 损失函数（MNFE-YOLO11），专为复杂地形边缘设备定制。</p>
+                        <p><strong>性能指标：</strong>模型参数量骤降 40%，推理速度跃升 30%。720P分辨率下害虫检测准确率维持在 92%。最终通过 RKNN Toolkit 完成通道级量化，成功部署至 Orange Pi 4 LTS 开发板。</p>
+                        <div class="tags">
+                            <span class="tag">MobileNetV3</span><span class="tag">Focal-EIoU</span><span class="tag">RKNN Toolkit</span><span class="tag">边缘计算</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="experience">
+            <div class="container">
+                <div class="section-title fade-up"><h2>历程与角色</h2></div>
+                <div class="timeline">
+                    <div class="timeline-item fade-up">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">2024 - 2025 学年</div>
+                        <div class="timeline-content">
+                            <h4>科创中心负责人 & 院长办公室助理</h4>
+                            <p>计算机与通信工程学院。统筹科创竞赛申报、组织赛前培训，对接校科协与导师资源，推进技术项目的校级落地转化。</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item fade-up">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">2024 - 2025 学年</div>
+                        <div class="timeline-content">
+                            <h4>ICT协会 副社长</h4>
+                            <p>主导社团内部技术交流与外部竞赛组队，推动校园内信息技术氛围建设。</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item fade-up">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">2024 至今</div>
+                        <div class="timeline-content">
+                            <h4>科研项目 Leader / 核心成员</h4>
+                            <p>担任省级大创项目《数字化升级：云计算与区块链技术赋能智能打印机》负责人，及“苗苗培育工程”交通场景多目标检测项目负责人。</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item fade-up">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">2023 - 2024 学年</div>
+                        <div class="timeline-content">
+                            <h4>AIGC数字营销 助理讲师</h4>
+                            <p>南京行知职业培训学校，辅助开展人工智能生成内容（AIGC）的教学与技术普及工作。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="achievements">
+            <div class="container">
+                <div class="section-title fade-up"><h2>高光时刻与学术产出</h2></div>
+                <div class="grid-layout">
+                    <div class="card-item fade-up" data-tilt data-tilt-max="5" data-tilt-speed="400">
+                        <h3><i class="fas fa-award"></i> 顶级竞赛奖项</h3>
+                        <ul style="list-style: none; padding-top: 10px;">
+                            <li style="margin-bottom: 12px; padding-left: 20px; position: relative;">
+                                <i class="fas fa-medal" style="position: absolute; left: 0; color:#fbbf24;"></i>
+                                <strong style="color:var(--text-color);">国家级二等奖</strong> - 高教社杯全国大学生数学建模竞赛 (2025)
+                            </li>
+                            <li style="margin-bottom: 12px; padding-left: 20px; position: relative;">
+                                <i class="fas fa-medal" style="position: absolute; left: 0; color:#fbbf24;"></i>
+                                <strong style="color:var(--text-color);">国家级三等奖</strong> - 第十七届全国大学生数学竞赛 (2025)
+                            </li>
+                            <li style="margin-bottom: 12px; padding-left: 20px; position: relative;">
+                                <i class="fas fa-star" style="position: absolute; left: 0; color:var(--accent-color);"></i>
+                                <strong style="color:var(--text-color);">省级三等奖</strong> - 蓝桥杯 / 省级机器人大赛 / 计算机设计大赛 / 挑战杯 (均于2025年斩获)
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card-item fade-up" data-tilt data-tilt-max="5" data-tilt-speed="400">
+                        <h3><i class="fas fa-book-open"></i> SCI 论文与软著</h3>
+                        <ul style="list-style: none; padding-top: 10px;">
+                            <li style="margin-bottom: 15px; border-bottom: 1px dashed rgba(148,163,184,0.3); padding-bottom: 10px;">
+                                <strong style="color:var(--text-color); display:block; line-height: 1.4;">SNEIF-YOLO11: A Lightweight Real-Time Framework...</strong>
+                                <span style="font-size: 0.85rem; color: var(--primary-color);">第二作者 | SCI 核心期刊录用 (Signal, Image and Video Processing)</span>
+                            </li>
+                            <li style="margin-bottom: 15px; border-bottom: 1px dashed rgba(148,163,184,0.3); padding-bottom: 10px;">
+                                <strong style="color:var(--text-color); display:block; line-height: 1.4;">Research on Security Enhancement of Printing Services...</strong>
+                                <span style="font-size: 0.85rem; color: var(--primary-color);">第一作者 | EI 外文会议录用 (EEICE 2025)</span>
+                            </li>
+                            <li style="margin-bottom: 5px;">
+                                <strong style="color:var(--text-color); display:block; line-height: 1.4;">知识产权储备</strong>
+                                <span style="font-size: 0.85rem; color: var(--light-text);">独立/联合拥有4项软件著作权 (涵盖智能目标检测、骨折识别系统等)</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="rightside">
+        <button id="darkmode" type="button" title="日夜模式切换"><i class="fas fa-moon"></i></button>
+        <button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles-engine@2/tsparticles.engine.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles-basic@2/tsparticles.basic.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles-interaction-particles-links@2/tsparticles.interaction.particles.links.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles-move-base@2/tsparticles.move.base.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles-shape-circle@2/tsparticles.shape.circle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles-updater-color@2/tsparticles.updater.color.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles-updater-opacity@2/tsparticles.updater.opacity.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles-updater-size@2/tsparticles.updater.size.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            
+            // ================= 1. 顶部进度条与滚动侦测 =================
+            const progressBar = document.getElementById('scroll-progress');
+            const header = document.getElementById('page-header');
+            const rightside = document.getElementById('rightside');
+
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                
+                progressBar.style.width = `${scrollPercent}%`;
+
+                if (scrollTop > 50) header.classList.add('nav-fixed');
+                else header.classList.remove('nav-fixed');
+
+                if (scrollTop > 300) rightside.classList.add('show');
+                else rightside.classList.remove('show');
+            });
+
+            document.getElementById('go-up').addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // ================= 2. 磁性按钮交互 (Magnetic Button) =================
+            const magneticBtn = document.querySelector('.magnetic-btn');
+            magneticBtn.addEventListener('mousemove', (e) => {
+                const rect = magneticBtn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                magneticBtn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px) scale(1.05)`;
+            });
+            magneticBtn.addEventListener('mouseleave', () => {
+                magneticBtn.style.transform = `translate(0px, 0px) scale(1)`;
+            });
+
+            // ================= 3. 自定义鼠标特效 =================
+            const cursor = document.querySelector('.cursor');
+            const follower = document.querySelector('.cursor-follower');
+            let posX = 0, posY = 0, mouseX = 0, mouseY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX; mouseY = e.clientY;
+                cursor.style.left = `${mouseX}px`; cursor.style.top = `${mouseY}px`;
+            });
+
+            const renderFollower = () => {
+                posX += (mouseX - posX) / 6; posY += (mouseY - posY) / 6;
+                follower.style.left = `${posX}px`; follower.style.top = `${posY}px`;
+                requestAnimationFrame(renderFollower);
+            };
+            renderFollower();
+
+            document.querySelectorAll('a, button, .card-item, .timeline-item, .avatar').forEach(el => {
+                el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); follower.classList.add('hover'); });
+                el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); follower.classList.remove('hover'); });
+            });
+
+            // ================= 4. 打字机特效 =================
+            new Typed('#typed-text', {
+                strings: ['计算机视觉与深度学习 Researcher', '智能农业与交通检测探索者', '全栈开发 / 算法部署工程师'],
+                typeSpeed: 60, backSpeed: 30, loop: true, backDelay: 2000
+            });
+
+            // ================= 5. ECharts 技能雷达图 =================
+            const initECharts = () => {
+                const chartDom = document.getElementById('skills-radar');
+                if (!chartDom) return;
+                const myChart = echarts.init(chartDom);
+                
+                const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                const textColor = isDark ? '#94a3b8' : '#64748b';
+                const splitColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
+
+                const option = {
+                    radar: {
+                        indicator: [
+                            { name: '计算机视觉 (CV)', max: 100 },
+                            { name: '前端开发 (Vue)', max: 100 },
+                            { name: '模型部署/量化', max: 100 },
+                            { name: '后端开发 (Java)', max: 100 },
+                            { name: '科研写作 (LaTeX)', max: 100 },
+                            { name: 'Python/C++底层', max: 100 }
+                        ],
+                        shape: 'polygon',
+                        splitNumber: 5,
+                        axisName: { color: textColor, fontSize: window.innerWidth < 768 ? 10 : 13, fontWeight: 'bold' },
+                        splitLine: { lineStyle: { color: [splitColor] } },
+                        splitArea: { show: false },
+                        axisLine: { lineStyle: { color: splitColor } }
+                    },
+                    series: [{
+                        type: 'radar',
+                        data: [{
+                            value: [92, 80, 75, 65, 85, 90],
+                            name: '能力值'
+                        }],
+                        symbolSize: 8,
+                        itemStyle: { color: '#3b82f6', borderColor: '#fff', borderWidth: 2 },
+                        lineStyle: { color: '#3b82f6', width: 2 },
+                        areaStyle: { color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                            { offset: 0, color: 'rgba(59, 130, 246, 0.6)' },
+                            { offset: 1, color: 'rgba(59, 130, 246, 0.1)' }
+                        ])}
+                    }]
+                };
+                myChart.setOption(option);
+                window.addEventListener('resize', () => myChart.resize());
+            };
+
+            // ================= 6. 粒子背景 =================
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            
+            async function loadParticles() {
+                await loadColorUpdater(tsParticles); await loadOpacityUpdater(tsParticles);
+                await loadSizeUpdater(tsParticles); await loadCircleShape(tsParticles);
+                await loadBaseMover(tsParticles); await loadParticlesLinksInteraction(tsParticles);
+                await tsParticles.load("tsparticles", {
+                    fullScreen: { enable: false },
+                    particles: {
+                        number: { value: window.innerWidth > 768 ? 50 : 20 },
+                        color: { value: isDark ? "#60a5fa" : "#3b82f6" },
+                        shape: { type: "circle" },
+                        opacity: { value: 0.4 },
+                        size: { value: 2 },
+                        links: { enable: true, distance: 150, color: isDark ? "#60a5fa" : "#3b82f6", opacity: 0.2, width: 1 },
+                        move: { enable: true, speed: 1.2 }
+                    },
+                    interactivity: {
+                        events: { onhover: { enable: true, mode: "grab" }, onclick: { enable: true, mode: "push" } },
+                        modes: { grab: { distance: 150, links: { opacity: 0.5 } }, push: { particles_nb: 3 } }
+                    },
+                    retina_detect: true
+                });
+            }
+            loadParticles();
+
+            // ================= 7. 滚动展示动画 (Intersection Observer) =================
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        // 当雷达图区域可见时再初始化，性能更好
+                        if(entry.target.classList.contains('radar-box') && !entry.target.dataset.init) {
+                            initECharts();
+                            entry.target.dataset.init = 'true';
+                        }
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+            document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+            // ================= 8. 日夜模式切换 =================
+            const darkmodeBtn = document.getElementById('darkmode');
+            if(isDark) darkmodeBtn.querySelector('i').className = 'fas fa-sun';
+
+            darkmodeBtn.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                if (currentTheme === 'dark') {
+                    btf.activateLightMode();
+                    btf.saveToLocal.set('theme', 'light', 2);
+                } else {
+                    btf.activateDarkMode();
+                    btf.saveToLocal.set('theme', 'dark', 2);
+                }
+                // 为了让 ECharts 和 粒子 颜色即时生效，刷新页面是最稳妥的方式
+                location.reload(); 
+            });
+        });
+    </script>
+</body>
+</html>
