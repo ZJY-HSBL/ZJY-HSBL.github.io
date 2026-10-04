@@ -1,0 +1,17 @@
+{
+  "name": "ZJY-HSBL — Research & Engineering Portfolio",
+  "short_name": "ZJY-HSBL",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#030a11",
+  "theme_color": "#030a11",
+  "description": "Software Engineering × Visual Intelligence × Intelligent Systems",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
