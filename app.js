@@ -63,8 +63,10 @@
     const dot = document.querySelector(".cursor-dot");
     const ring = document.querySelector(".cursor-ring");
     let mx = -100, my = -100, rx = -100, ry = -100;
+
     window.addEventListener("mousemove", (e) => {
-      mx = e.clientX; my = e.clientY;
+      mx = e.clientX;
+      my = e.clientY;
       if (dot) {
         dot.style.left = mx + "px";
         dot.style.top = my + "px";
@@ -90,80 +92,80 @@
 
   const canvas = document.getElementById("field");
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   if (canvas && !reduced) {
     const ctx = canvas.getContext("2d");
-    let width = 0, height = 0, dpr = 1;
-    let points = [];
-    let mouse = { x: -9999, y: -9999 };
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
+    let pointerX = 0.5;
+    let pointerY = 0.5;
+    let time = 0;
 
     const resize = () => {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       width = window.innerWidth;
       height = window.innerHeight;
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
       canvas.style.width = width + "px";
       canvas.style.height = height + "px";
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const count = Math.min(75, Math.max(28, Math.floor(width / 20)));
-      points = Array.from({ length: count }, () => ({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - .5) * .12,
-        vy: (Math.random() - .5) * .12,
-        r: Math.random() * 1.1 + .4
-      }));
     };
 
     window.addEventListener("resize", resize, { passive: true });
-    window.addEventListener("mousemove", (e) => { mouse.x = e.clientX; mouse.y = e.clientY; }, { passive: true });
-    window.addEventListener("mouseleave", () => { mouse.x = -9999; mouse.y = -9999; }, { passive: true });
+    window.addEventListener("mousemove", (e) => {
+      pointerX = e.clientX / Math.max(1, width);
+      pointerY = e.clientY / Math.max(1, height);
+    }, { passive: true });
+
     resize();
+
+    const drawWave = (baseY, amp, wavelength, speed, alpha, offset, lineWidth) => {
+      const light = root.dataset.theme === "light";
+      const rgb = light ? "31,127,147" : "118,200,217";
+      ctx.beginPath();
+
+      for (let x = -40; x <= width + 40; x += 7) {
+        const drift = (pointerX - .5) * 18;
+        const y =
+          baseY +
+          Math.sin((x + time * speed + offset + drift) / wavelength) * amp +
+          Math.sin((x - time * speed * .55 + offset * 1.7) / (wavelength * .47)) * amp * .28;
+
+        if (x === -40) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+
+      ctx.strokeStyle = "rgba(" + rgb + "," + alpha + ")";
+      ctx.lineWidth = lineWidth;
+      ctx.stroke();
+    };
 
     const draw = () => {
       ctx.clearRect(0, 0, width, height);
+
+      const yShift = (pointerY - .5) * 10;
+      const center = height * .57 + yShift;
+
+      drawWave(center - 90, 7, 145, .42, .075, 0, .65);
+      drawWave(center - 55, 9, 165, .32, .10, 90, .75);
+      drawWave(center - 14, 12, 188, .25, .14, 180, .85);
+      drawWave(center + 35, 15, 225, .19, .10, 250, .8);
+      drawWave(center + 92, 18, 285, .14, .065, 330, .7);
+
       const light = root.dataset.theme === "light";
-      const dotColor = light ? "rgba(55,48,120,.20)" : "rgba(200,194,255,.18)";
-      const lineColor = light ? "rgba(73,62,150," : "rgba(169,157,255,";
+      const g = ctx.createLinearGradient(0, center - 180, 0, center + 220);
+      g.addColorStop(0, light ? "rgba(31,127,147,0)" : "rgba(118,200,217,0)");
+      g.addColorStop(.5, light ? "rgba(31,127,147,.018)" : "rgba(118,200,217,.018)");
+      g.addColorStop(1, light ? "rgba(31,127,147,0)" : "rgba(118,200,217,0)");
+      ctx.fillStyle = g;
+      ctx.fillRect(0, center - 180, width, 400);
 
-      for (const p of points) {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < -10) p.x = width + 10;
-        if (p.x > width + 10) p.x = -10;
-        if (p.y < -10) p.y = height + 10;
-        if (p.y > height + 10) p.y = -10;
-
-        const mdx = mouse.x - p.x;
-        const mdy = mouse.y - p.y;
-        const md = Math.hypot(mdx, mdy);
-        if (md < 150) {
-          p.x -= mdx * .0006;
-          p.y -= mdy * .0006;
-        }
-
-        ctx.beginPath();
-        ctx.fillStyle = dotColor;
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      for (let i = 0; i < points.length; i++) {
-        for (let j = i + 1; j < points.length; j++) {
-          const a = points[i], b = points[j];
-          const d = Math.hypot(a.x - b.x, a.y - b.y);
-          if (d < 115) {
-            ctx.beginPath();
-            ctx.strokeStyle = lineColor + ((1 - d / 115) * .13).toFixed(3) + ")";
-            ctx.lineWidth = .55;
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.stroke();
-          }
-        }
-      }
+      time += .55;
       requestAnimationFrame(draw);
     };
+
     draw();
   }
 })();
