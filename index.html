@@ -1,378 +1,86 @@
 <!doctype html>
 <html lang="en" data-theme="dark">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#030a11">
-  <meta name="color-scheme" content="dark light">
-
-  <title>海生不浪 — ZJY-HSBL</title>
-  <meta name="description" content="海生不浪 · ZJY-HSBL · Software Engineering · Visual Intelligence · Efficient AI">
-  <meta name="author" content="ZJY-HSBL">
-  <meta name="keywords" content="海生不浪, ZJY-HSBL, computer vision, deep learning, multi-object tracking, medical AI, software engineering">
-
-  <meta property="og:title" content="海生不浪 — ZJY-HSBL">
-  <meta property="og:description" content="Personal website of ZJY-HSBL. Publications, awards, projects and code.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://zjy-hsbl.github.io/">
-  <meta property="og:site_name" content="海生不浪 · ZJY-HSBL">
-
-  <link rel="canonical" href="https://zjy-hsbl.github.io/">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23030a11'/%3E%3Cpath d='M10 35c8-8 15 8 24 0s15 8 20 0' fill='none' stroke='%2376c8d9' stroke-width='3.6' stroke-linecap='round'/%3E%3Cpath d='M13 26c6-6 11 5 18 0s11 5 18 0' fill='none' stroke='%23d9eff3' stroke-opacity='.62' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E">
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#030a11"><meta name="color-scheme" content="dark light">
+  <title>ZJY-HSBL — Software Engineering × Visual Intelligence</title>
+  <meta name="description" content="ZJY-HSBL · Software Engineering · Computer Vision · Intelligent Systems. Research, projects, publications, awards and notes.">
+  <meta name="author" content="ZJY-HSBL"><meta property="og:type" content="website">
+  <meta property="og:title" content="ZJY-HSBL — Research & Engineering Portfolio">
+  <meta property="og:description" content="Software Engineering × Visual Intelligence × Intelligent Systems">
+  <meta property="og:url" content="https://zjy-hsbl.github.io/"><link rel="canonical" href="https://zjy-hsbl.github.io/">
   <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-  <canvas id="field" aria-hidden="true"></canvas>
-  <div class="sea-glow" aria-hidden="true"></div>
-  <div class="progress" aria-hidden="true"></div>
-  <div class="cursor-dot" aria-hidden="true"></div>
-  <div class="cursor-ring" aria-hidden="true"></div>
-
-  <header class="nav-wrap">
-    <nav class="nav" aria-label="Primary navigation">
-      <a class="brand" href="#top" aria-label="Back to top">
-        <span class="brand-cn" lang="zh-CN">海生不浪</span>
-        <span class="brand-en en">ZJY-HSBL</span>
-      </a>
-
-      <div class="nav-links">
-        <a href="#research">Research</a>
-        <a href="#publications">Publications</a>
-        <a href="#honors">Honors</a>
-        <a href="#systems">Systems</a>
-        <a href="#contact">Contact</a>
-        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">○</button>
-      </div>
-    </nav>
-  </header>
+  <canvas id="field" aria-hidden="true"></canvas><div class="sea-glow" aria-hidden="true"></div><div class="progress"></div>
+  <header class="nav-wrap"><nav class="nav">
+    <a class="brand" href="#top"><span class="brand-cn">海生不浪</span><span class="brand-en">ZJY-HSBL</span></a>
+    <div class="nav-links"><a href="#research">Research</a><a href="#projects">Projects</a><a href="#publications">Publications</a><a href="#notes">Notes</a><a href="#about">About</a><button id="themeToggle" class="theme-toggle" aria-label="Switch theme">○</button></div>
+  </nav></header>
 
   <main id="top">
-    <section class="hero">
-      <div class="horizon" aria-hidden="true"><span></span></div>
-
-      <div class="shell hero-grid">
-        <div class="hero-main">
-          <div class="eyebrow reveal">ZJY-HSBL · Research Portfolio · 2026</div>
-
-          <h1 class="hero-name reveal" data-delay="1" lang="zh-CN">海生不浪</h1>
-
-                    <div class="hero-sub reveal" data-delay="2">
-            <span>Software Engineering</span>
-            <span>Visual Intelligence</span>
-            <span>Efficient AI</span>
-          </div>
-
-          <p class="hero-note reveal" data-delay="3" lang="zh-CN">个人网站，记录论文、竞赛、项目与代码。</p>
-
-          <div class="hero-actions reveal" data-delay="3">
-            <a class="pill-link" href="https://github.com/ZJY-HSBL" target="_blank" rel="noreferrer">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .7a11.5 11.5 0 0 0-3.63 22.41c.58.1.79-.25.79-.56v-2.02c-3.22.7-3.9-1.37-3.9-1.37-.52-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.27 3.38.97.1-.75.4-1.27.74-1.56-2.57-.29-5.27-1.28-5.27-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.47.11-3.05 0 0 .97-.31 3.16 1.18A10.9 10.9 0 0 1 12 6.35c.98 0 1.95.13 2.86.38 2.19-1.49 3.15-1.18 3.15-1.18.64 1.58.24 2.76.12 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.28 5.68.42.36.79 1.07.79 2.16v3.02c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .7Z"/></svg>
-              GitHub · ZJY-HSBL
-            </a>
-
-            <a class="pill-link" href="https://www.zhihu.com/people/956f602ee4de1e07635161a771a2dd76" target="_blank" rel="noreferrer">
-              <span lang="zh-CN">知乎 · 海生不浪</span>
-              <span aria-hidden="true">↗</span>
-            </a>
-          </div>
-        </div>
-
-        <aside class="hero-side reveal" data-delay="2" aria-label="Profile and research summary">
-          <div class="avatar-wrap">
-            <img class="avatar" src="image/picture.jpg" alt="海生不浪 avatar">
-          </div>
-          <div class="stat">
-            <span class="stat-number" data-count="14">0</span>
-            <div class="stat-label">Publications</div>
-          </div>
-          <div class="stat">
-            <span class="stat-number" data-count="2">0</span>
-            <div class="stat-label">SCI papers</div>
-          </div>
-          <div class="stat">
-            <span class="stat-number" data-count="10">0</span>
-            <div class="stat-label">EI papers</div>
-          </div>
-          <div class="stat">
-            <span class="stat-number" data-count="7">0</span>
-            <div class="stat-label">National / Provincial awards</div>
-          </div>
-        </aside>
+    <section class="hero"><div class="horizon"><span></span></div><div class="shell hero-grid">
+      <div class="hero-main">
+        <div class="eyebrow reveal">Research & Engineering Portfolio · 2026</div>
+        <h1 class="hero-name reveal" data-delay="1">海生不浪</h1>
+        <p class="hero-role reveal" data-delay="2">Software Engineering <em>×</em> Visual Intelligence <em>×</em> Intelligent Systems</p>
+        <p class="hero-note reveal" data-delay="3">I build efficient visual intelligence models and complete software systems, with current work spanning computer vision, medical imaging, tracking and spatiotemporal learning.</p>
+        <div class="hero-actions reveal" data-delay="3"><a class="pill-link" href="https://github.com/ZJY-HSBL" target="_blank" rel="noreferrer">GitHub ↗</a><a class="pill-link" href="#projects">Selected Projects ↓</a></div>
       </div>
+      <aside class="hero-side reveal" data-delay="2"><img class="avatar" src="image/picture.jpg" alt="ZJY-HSBL avatar">
+        <div class="identity"><strong>ZJY-HSBL</strong><span>Software Engineering Undergraduate</span><span>Nanjing · China</span></div>
+        <div class="focus-line"><span>Primary focus</span><b>AI / CV</b></div><div class="focus-line"><span>Engineering</span><b>Python / Systems</b></div>
+      </aside>
+    </div></section>
 
-      <div class="scroll-cue" aria-hidden="true">Scroll</div>
-    </section>
-
-    <section class="section" id="research">
-      <div class="shell">
-        <div class="section-head reveal">
-          <div class="index">01 / Research</div>
-          <div>
-            <h2 class="section-title">Research<br>directions.</h2>
-            <span class="section-cn" lang="zh-CN">研究方向</span>
-          </div>
-        </div>
-
-        <div class="research-grid">
-          <article class="research-card reveal" data-no="01">
-            <h3>Visual Intelligence</h3>
-            <p>
-              Object detection, behavior perception, small-object recognition,
-              lightweight backbones and efficient visual representation.
-            </p>
-            <div class="research-keywords">Detection · Recognition · Efficient AI</div>
-          </article>
-
-          <article class="research-card reveal" data-delay="1" data-no="02">
-            <h3>Tracking & Motion</h3>
-            <p>
-              Multi-object tracking, appearance representation, adaptive motion
-              estimation, low-confidence matching and trajectory modeling.
-            </p>
-            <div class="research-keywords">MOT · ReID · Association · Motion</div>
-          </article>
-
-          <article class="research-card reveal" data-delay="2" data-no="03">
-            <h3>Medical & Spatiotemporal AI</h3>
-            <p>
-              Medical image understanding, multimodal learning, state-space
-              modeling, dynamic graphs and traffic-flow forecasting.
-            </p>
-            <div class="research-keywords">Medical AI · Mamba · Dynamic Graphs</div>
-          </article>
-        </div>
+    <section class="section" id="research"><div class="shell">
+      <div class="section-head reveal"><div class="index">01 / Research</div><div><h2 class="section-title">What I<br>work on.</h2><span class="section-cn">研究方向</span></div></div>
+      <div class="research-grid">
+        <article class="research-card reveal" data-no="01"><h3>Computer Vision</h3><p>Detection, segmentation, multi-object tracking, visual representation and lightweight model design.</p><div class="research-keywords">Detection · Segmentation · MOT · Efficient AI</div></article>
+        <article class="research-card reveal" data-no="02"><h3>Medical Intelligence</h3><p>Medical image understanding, lesion localization, segmentation and quantitative visual analysis.</p><div class="research-keywords">MRI · X-ray · Detection · Segmentation</div></article>
+        <article class="research-card reveal" data-no="03"><h3>Spatiotemporal Learning</h3><p>Dynamic graphs, state-space modeling, traffic forecasting and structured decision algorithms.</p><div class="research-keywords">Dynamic Graph · Forecasting · SSM · Decision</div></article>
       </div>
-    </section>
+    </div></section>
 
-    <section class="section" id="publications">
-      <div class="shell">
-        <div class="section-head reveal">
-          <div class="index">02 / Publications</div>
-          <div>
-            <h2 class="section-title">Selected<br>works.</h2>
-            <span class="section-cn" lang="zh-CN">核心学术成果</span>
-          </div>
-        </div>
+    <section class="section" id="projects"><div class="shell">
+      <div class="section-head reveal"><div class="index">02 / Projects</div><div><h2 class="section-title">Selected<br>projects.</h2><span class="section-cn">代表性项目 · 数据来自 GitHub</span></div></div>
+      <div class="project-toolbar reveal"><div class="filters" id="projectFilters"></div><span id="syncStatus">Loading GitHub repositories…</span></div>
+      <div class="project-grid" id="projectGrid" aria-live="polite"></div>
+      <div class="project-more reveal"><a href="https://github.com/ZJY-HSBL?tab=repositories" target="_blank" rel="noreferrer">Explore all repositories ↗</a></div>
+    </div></section>
 
-        <div class="pub-summary reveal">
-          <b>14</b><span>publications in total ·</span>
-          <b>2</b><span>SCI-indexed journal papers ·</span>
-          <b>10</b><span>EI Compendex conference papers</span>
-        </div>
-
-        <div class="publications">
-          <a class="pub reveal" href="https://doi.org/10.1007/s11760-025-04731-2" target="_blank" rel="noreferrer">
-            <span class="pub-num">001</span>
-            <span class="pub-badge">SCI · 2nd Author</span>
-            <span>
-              <h3>SNEIF-YOLO11: A Lightweight Real-Time Framework for Fighting Behavior Detection</h3>
-              <span class="pub-meta"><i>Signal, Image and Video Processing</i> · 2025</span>
-            </span>
-            <span class="pub-arrow">↗</span>
-          </a>
-
-          <a class="pub reveal" href="https://doi.org/10.1007/s11760-026-05303-8" target="_blank" rel="noreferrer">
-            <span class="pub-num">002</span>
-            <span class="pub-badge">SCI · 4th Author</span>
-            <span>
-              <h3>ABCP-YOLO11: An Attention-Enhanced Framework for Intelligent Fracture Detection</h3>
-              <span class="pub-meta"><i>Signal, Image and Video Processing</i> · 2026</span>
-            </span>
-            <span class="pub-arrow">↗</span>
-          </a>
-
-          <a class="pub reveal" href="https://doi.org/10.1109/ISPP69262.2026.11542983" target="_blank" rel="noreferrer">
-            <span class="pub-num">003</span>
-            <span class="pub-badge">EI · 1st Author</span>
-            <span>
-              <h3>Efficient Multi-Object Tracking in Traffic Surveillance based on Adaptive FairMot and Low-Confidence Matching</h3>
-              <span class="pub-meta">ISPP 2026 · IEEE</span>
-            </span>
-            <span class="pub-arrow">↗</span>
-          </a>
-
-          <a class="pub reveal" href="https://doi.org/10.1109/GAIIS69281.2026.11519106" target="_blank" rel="noreferrer">
-            <span class="pub-num">004</span>
-            <span class="pub-badge">EI · 1st Author</span>
-            <span>
-              <h3>A Lightweight Face Detection Framework Based on ShuffleNet and Coordinate Attention</h3>
-              <span class="pub-meta">GAIIS 2026 · IEEE</span>
-            </span>
-            <span class="pub-arrow">↗</span>
-          </a>
-
-          <a class="pub reveal" href="https://doi.org/10.1109/ISCCN69074.2026.11564064" target="_blank" rel="noreferrer">
-            <span class="pub-num">005</span>
-            <span class="pub-badge">EI · 2nd Author</span>
-            <span>
-              <h3>Enhancing Selective State Space Models with Mixed Depthwise Convolution</h3>
-              <span class="pub-meta">ISCCN 2026 · IEEE</span>
-            </span>
-            <span class="pub-arrow">↗</span>
-          </a>
-
-          <a class="pub reveal" href="https://doi.org/10.1109/NNICE68970.2026.11465346" target="_blank" rel="noreferrer">
-            <span class="pub-num">006</span>
-            <span class="pub-badge">EI · 2nd Author</span>
-            <span>
-              <h3>YOLO11-SEFNet: A Statistical-Aware Enhancement Network for Feature-Scarce and Camouflaged Agricultural Pests</h3>
-              <span class="pub-meta">NNICE 2026 · IEEE</span>
-            </span>
-            <span class="pub-arrow">↗</span>
-          </a>
-        </div>
+    <section class="section" id="publications"><div class="shell">
+      <div class="section-head reveal"><div class="index">03 / Publications</div><div><h2 class="section-title">Selected<br>works.</h2><span class="section-cn">代表性学术成果</span></div></div>
+      <div class="publications">
+        <a class="pub reveal" href="https://doi.org/10.1007/s11760-025-04731-2" target="_blank" rel="noreferrer"><span class="pub-num">001</span><span class="pub-badge">SCI</span><span><h3>SNEIF-YOLO11: A Lightweight Real-Time Framework for Fighting Behavior Detection</h3><span class="pub-meta">Signal, Image and Video Processing · 2025</span></span><span class="pub-arrow">↗</span></a>
+        <a class="pub reveal" href="https://doi.org/10.1007/s11760-026-05303-8" target="_blank" rel="noreferrer"><span class="pub-num">002</span><span class="pub-badge">SCI</span><span><h3>ABCP-YOLO11: An Attention-Enhanced Framework for Intelligent Fracture Detection</h3><span class="pub-meta">Signal, Image and Video Processing · 2026</span></span><span class="pub-arrow">↗</span></a>
+        <a class="pub reveal" href="https://doi.org/10.1109/ISPP69262.2026.11542983" target="_blank" rel="noreferrer"><span class="pub-num">003</span><span class="pub-badge">EI</span><span><h3>Efficient Multi-Object Tracking in Traffic Surveillance based on Adaptive FairMot and Low-Confidence Matching</h3><span class="pub-meta">ISPP 2026 · IEEE</span></span><span class="pub-arrow">↗</span></a>
+        <a class="pub reveal" href="https://doi.org/10.1109/GAIIS69281.2026.11519106" target="_blank" rel="noreferrer"><span class="pub-num">004</span><span class="pub-badge">EI</span><span><h3>A Lightweight Face Detection Framework Based on ShuffleNet and Coordinate Attention</h3><span class="pub-meta">GAIIS 2026 · IEEE</span></span><span class="pub-arrow">↗</span></a>
       </div>
-    </section>
+    </div></section>
 
-    <section class="section" id="honors">
-      <div class="shell">
-        <div class="section-head reveal">
-          <div class="index">03 / Honors</div>
-          <div>
-            <h2 class="section-title">Selected<br>honors.</h2>
-            <span class="section-cn" lang="zh-CN">国家级与省级竞赛成果</span>
-          </div>
-        </div>
-
-        <div class="honors-layout">
-          <div class="honor-group reveal">
-            <h3>National</h3>
-            <ul class="honor-list" lang="zh-CN">
-              <li>
-                高教社杯全国大学生数学建模竞赛本科组 <strong>二等奖</strong>
-                <small class="en">2025 · Team Award</small>
-              </li>
-              <li>
-                第十七届全国大学生数学竞赛（非数学 A 类）<strong>三等奖</strong>
-                <small class="en">2025 · Individual Award</small>
-              </li>
-            </ul>
-          </div>
-
-          <div class="honor-group reveal" data-delay="1">
-            <h3>Provincial</h3>
-            <ul class="honor-list" lang="zh-CN">
-              <li>
-                江苏省高等学校第二十三届高等数学竞赛本科一级 A <strong>二等奖</strong>
-                <small class="en">2026 · Individual Award</small>
-              </li>
-              <li>
-                第十六届蓝桥杯江苏赛区 Python 程序设计大学 B 组 <strong>三等奖</strong>
-                <small class="en">2025 · Individual Award</small>
-              </li>
-              <li>
-                第十二届江苏省大学生计算机设计大赛 <strong>三等奖</strong>
-                <small class="en">2025 · Team Award</small>
-              </li>
-              <li>
-                第十六届江苏省大学生机器人大赛密室夺宝项目 <strong>三等奖</strong>
-                <small class="en">2025 · Team Award</small>
-              </li>
-              <li>
-                第十九届“挑战杯”江苏省选拔赛 <strong>三等奖</strong>
-                <small class="en">2025 · Team Award</small>
-              </li>
-            </ul>
-          </div>
-        </div>
+    <section class="section" id="awards"><div class="shell">
+      <div class="section-head reveal"><div class="index">04 / Awards</div><div><h2 class="section-title">Selected<br>honors.</h2><span class="section-cn">竞赛与荣誉</span></div></div>
+      <div class="award-grid">
+        <article class="award-feature reveal"><span>National · 2025</span><strong>二等奖</strong><h3>高教社杯全国大学生数学建模竞赛</h3><p>本科组 · Team Award</p></article>
+        <div class="award-list reveal"><div><b>全国三等奖</b><span>第十七届全国大学生数学竞赛</span></div><div><b>省级三等奖</b><span>第十九届“挑战杯”江苏省选拔赛</span></div><div><b>省级三等奖</b><span>第十六届蓝桥杯江苏赛区</span></div><div><b>省级三等奖</b><span>江苏省大学生计算机设计大赛</span></div><div><b>省级三等奖</b><span>江苏省大学生机器人大赛</span></div></div>
       </div>
-    </section>
+    </div></section>
 
-    <section class="section" id="innovation">
-      <div class="shell">
-        <div class="section-head reveal">
-          <div class="index">04 / Innovation</div>
-          <div>
-            <h2 class="section-title">Innovation<br>projects.</h2>
-            <span class="section-cn" lang="zh-CN">创新创业与科研训练</span>
-          </div>
-        </div>
-
-        <div class="innovation-list">
-          <article class="innovation-item reveal">
-            <div class="year">2024 · Provincial</div>
-            <div class="role">Project Lead · Completed</div>
-            <h3 lang="zh-CN">数字化升级：云计算与区块链技术赋能智能打印机</h3>
-          </article>
-
-          <article class="innovation-item reveal">
-            <div class="year">2025 · Provincial</div>
-            <div class="role">Member · Completed</div>
-            <h3 lang="zh-CN">基于多模态融合与深度增强的夜间人脸识别技术研究</h3>
-          </article>
-
-          <article class="innovation-item reveal">
-            <div class="year">2026 · Ongoing</div>
-            <div class="role">Project Lead</div>
-            <h3 lang="zh-CN">基于多模态特征融合的脑肿瘤 MRI 病灶检测与分割系统研究</h3>
-          </article>
-        </div>
+    <section class="section" id="notes"><div class="shell">
+      <div class="section-head reveal"><div class="index">05 / Notes</div><div><h2 class="section-title">Notes &<br>knowledge.</h2><span class="section-cn">学习记录与知识库</span></div></div>
+      <div class="notes-grid">
+        <a class="note-card reveal" href="https://github.com/ZJY-HSBL/Algorithm-Learning" target="_blank" rel="noreferrer"><span>Algorithms</span><h3>Algorithm Learning</h3><p>算法笔记、LeetCode 题单与持续学习记录。</p><i>Open repository ↗</i></a>
+        <a class="note-card reveal" href="https://github.com/ZJY-HSBL/Python-Learning" target="_blank" rel="noreferrer"><span>Python</span><h3>Python Learning</h3><p>Python 学习记录与程序设计竞赛资料。</p><i>Open repository ↗</i></a>
+        <a class="note-card reveal" href="https://github.com/ZJY-HSBL/Final-Exam-Review" target="_blank" rel="noreferrer"><span>University</span><h3>Final Exam Review</h3><p>本科课程期末复习知识点与题库整理。</p><i>Open repository ↗</i></a>
       </div>
-    </section>
+    </div></section>
 
-    <section class="section" id="systems">
-      <div class="shell">
-        <div class="section-head reveal">
-          <div class="index">05 / Systems</div>
-          <div>
-            <h2 class="section-title">Research<br>systems.</h2>
-            <span class="section-cn" lang="zh-CN">代表性研究代码</span>
-          </div>
-        </div>
-
-        <div class="systems">
-          <a class="system reveal" href="https://github.com/ZJY-HSBL/Fighting-Behavior" target="_blank" rel="noreferrer">
-            <span class="system-no">SYSTEM / 01</span>
-            <h3>Fighting-Behavior</h3>
-            <p>Lightweight real-time visual perception for fighting behavior detection and efficient deployment.</p>
-            <div class="system-tags">YOLO · Efficient AI · Behavior Recognition</div>
-            <span class="system-arrow">↗</span>
-          </a>
-
-          <a class="system reveal" data-delay="1" href="https://github.com/ZJY-HSBL/AMFTrack" target="_blank" rel="noreferrer">
-            <span class="system-no">SYSTEM / 02</span>
-            <h3>AMFTrack</h3>
-            <p>Adaptive motion-feature multi-object tracking for complex traffic scenes and low-confidence association.</p>
-            <div class="system-tags">MOT · ReID · Kalman · Association</div>
-            <span class="system-arrow">↗</span>
-          </a>
-
-          <a class="system reveal" data-delay="2" href="https://github.com/ZJY-HSBL/DynaFlux" target="_blank" rel="noreferrer">
-            <span class="system-no">SYSTEM / 03</span>
-            <h3>DynaFlux</h3>
-            <p>Multi-scale dynamic graph learning for traffic-flow forecasting and spatiotemporal representation.</p>
-            <div class="system-tags">PyTorch · Dynamic Graphs · GAT</div>
-            <span class="system-arrow">↗</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section contact" id="contact">
-      <div class="shell contact-inner reveal">
-        <div class="contact-kicker">Contact</div>
-        <h2>Links.</h2>
-        <div class="contact-cn" lang="zh-CN">GitHub 与知乎主页</div>
-
-        <div class="contact-links">
-          <a href="https://github.com/ZJY-HSBL" target="_blank" rel="noreferrer">GitHub · ZJY-HSBL ↗</a>
-          <a href="https://www.zhihu.com/people/956f602ee4de1e07635161a771a2dd76" target="_blank" rel="noreferrer">
-            <span lang="zh-CN">知乎 · 海生不浪</span> ↗
-          </a>
-        </div>
-      </div>
-    </section>
+    <section class="section about" id="about"><div class="shell about-grid">
+      <div class="section-head reveal"><div class="index">06 / About</div><div><h2 class="section-title">Build.<br>Study. Iterate.</h2><span class="section-cn">关于我</span></div></div>
+      <div class="about-copy reveal"><p>I am an undergraduate in Software Engineering at Pujiang Institute, Nanjing Tech University. My primary technical direction is artificial intelligence and deep learning, with a particular focus on computer vision.</p><p>I treat research code and software engineering as the same long-term discipline: small working systems first, explicit boundaries, reproducible experiments, and complexity only when the product actually needs it.</p><div class="about-links"><a href="https://github.com/ZJY-HSBL" target="_blank" rel="noreferrer">GitHub · ZJY-HSBL ↗</a><a href="https://www.zhihu.com/people/956f602ee4de1e07635161a771a2dd76" target="_blank" rel="noreferrer">知乎 · 海生不浪 ↗</a></div></div>
+    </div></section>
   </main>
-
-  <footer class="footer">
-    <div class="shell footer-inner">
-      <span>© 2026 ZJY-HSBL</span>
-      <span lang="zh-CN">海生不浪</span>
-      <span class="en">Personal Website</span>
-    </div>
-  </footer>
-
-  <script src="app.js" defer></script>
-</body>
-</html>
+  <footer class="footer"><div class="shell footer-inner"><span>© 2026 ZJY-HSBL</span><span>海生不浪</span><span>Research & Engineering Portfolio</span></div></footer>
+  <script src="projects.js" defer></script><script src="app.js" defer></script>
+</body></html>
