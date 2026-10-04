@@ -1,7 +1,7 @@
 (() => {
  const root=document.documentElement,toggle=document.getElementById("themeToggle"),saved=localStorage.getItem("zjy-theme");
  if(saved==="light"||saved==="dark") root.dataset.theme=saved;
- const sync=()=>{if(toggle)toggle.textContent=root.dataset.theme==="light"?"●":"○"};sync();
+ const sync=()=>{if(!toggle)return;const light=root.dataset.theme==="light";toggle.textContent=light?"●":"○";toggle.setAttribute("aria-label",light?"Switch to dark theme":"Switch to light theme");toggle.setAttribute("aria-pressed",light?"true":"false")};sync();
  toggle?.addEventListener("click",()=>{root.dataset.theme=root.dataset.theme==="light"?"dark":"light";localStorage.setItem("zjy-theme",root.dataset.theme);sync()});
  const progress=document.querySelector(".progress");const scroll=()=>{const h=document.documentElement.scrollHeight-innerHeight;progress.style.width=(h?scrollY/h*100:0)+"%"};addEventListener("scroll",scroll,{passive:true});scroll();
  const observer=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");observer.unobserve(e.target)}}),{threshold:.1,rootMargin:"0px 0px -30px"});
