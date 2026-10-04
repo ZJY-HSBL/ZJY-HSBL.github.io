@@ -32,8 +32,10 @@ function resolveLocal(page,ref){
   if(!clean)target=page;
   else if(clean.startsWith("/"))target=clean.slice(1);
   else target=toPosix(path.normalize(path.join(path.dirname(page),clean)));
-  if(!target)target="index.html";
-  if(clean.endsWith("/"))target=target.replace(/\/$/,"")+"/index.html";
+  if(clean.endsWith("/")){
+    target=target.replace(/\/+$/,"");
+    target=(!target||target===".")?"index.html":target+"/index.html";
+  }else if(!target||target===".")target="index.html";
   return {target,hash:decodeURIComponent(hash)};
 }
 
