@@ -75,3 +75,11 @@ The same validation runs automatically through GitHub Actions on pushes and pull
 The site intentionally stays framework-free. For a static portfolio, plain HTML/CSS/JavaScript keeps the runtime small, the architecture explicit and maintenance straightforward.
 
 本项目刻意保持原生静态架构。对于个人作品集网站而言，这种方式能够减少依赖、降低运行复杂度，并保持结构清晰、部署稳定和长期可维护性。
+
+## Portfolio updates / 内容维护
+
+The curated project catalog now includes Iterduca, FolderBox, Vitrunda, BoundEvo, AMFTrack and BoneAgeVision alongside the four original research case studies. Each repository card uses live GitHub metadata when the API is available and a static description otherwise. The research graph, publication archive and home timeline are updated to reflect these projects.
+
+代表项目列表现已补充 Iterduca、FolderBox、Vitrunda、BoundEvo、AMFTrack 与 BoneAgeVision，并保留原有四个研究案例页。GitHub API 可用时读取动态项目资料，否则使用本地简介；研究图谱、论文归档和时间线同步更新。
+
+**Visual and interaction policy / 视觉与交互约定：** preserve the animated sea background, reveal transitions, theme switching, live repository sync, filters and command palette during future content updates. / 后续更新内容时保留海浪动态背景、滚动过渡、主题切换、仓库动态同步、项目筛选及快捷搜索功能。
