@@ -10,11 +10,24 @@
  const catalog=window.PORTFOLIO_PROJECTS||[],grid=document.getElementById("projectGrid"),filters=document.getElementById("projectFilters"),status=document.getElementById("syncStatus");
  const categories=["All",...new Set(catalog.map(x=>x.category))];let active="All",repos={};
  const cleanDescription=s=>(s||"").split(" · ")[0].trim();
+ // GitHub API responses and localStorage cache entries are data, never trusted markup.
+ const escapeHTML=value=>String(value??"").replace(/[&<>"']/g,char=>({
+   "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ })[char]);
  const render=()=>{
    if(!grid)return; const rows=catalog.filter(x=>active==="All"||x.category===active);
-   grid.innerHTML=rows.map((x,n)=>{const r=repos[x.name]||{};const href=x.detail||r.html_url||"https://github.com/ZJY-HSBL/"+x.name;const external=!x.detail;return `<a class="project-card reveal ${x.featured?"featured":""}" href="${href}" ${external?'target="_blank" rel="noreferrer"':""}><div class="project-top"><span>0${n+1} / ${x.category}${x.featured?" · Case Study":""}</span><span>${r.language||x.tech.split(" · ")[0]}</span></div><h3>${x.name}</h3><p>${cleanDescription(r.description)||x.fallback}</p><div class="project-tech">${x.tech}</div><div class="project-foot"><span>${r.stargazers_count?"★ "+r.stargazers_count:(x.detail?"View case study":"GitHub repository")}</span><b>↗</b></div></a>`}).join("");observe()
+   grid.innerHTML=rows.map((x,n)=>{
+     const r=repos[x.name]||{};
+     // The destination comes from our curated catalog, not external API metadata.
+     const href=escapeHTML(x.detail||"https://github.com/ZJY-HSBL/"+encodeURIComponent(x.name));
+     const external=!x.detail;
+     const language=escapeHTML(r.language||x.tech.split(" · ")[0]);
+     const description=escapeHTML(cleanDescription(r.description)||x.fallback);
+     const stars=Number.isSafeInteger(r.stargazers_count)&&r.stargazers_count>0?"★ "+r.stargazers_count:(x.detail?"View case study":"GitHub repository");
+     return `<a class="project-card reveal ${x.featured?"featured":""}" href="${href}" ${external?'target="_blank" rel="noreferrer"':""}><div class="project-top"><span>0${n+1} / ${escapeHTML(x.category)}${x.featured?" · Case Study":""}</span><span>${language}</span></div><h3>${escapeHTML(x.name)}</h3><p>${description}</p><div class="project-tech">${escapeHTML(x.tech)}</div><div class="project-foot"><span>${stars}</span><b>↗</b></div></a>`;
+   }).join("");observe()
  };
- if(filters){filters.innerHTML=categories.map((x,i)=>`<button class="filter ${i===0?"active":""}" data-filter="${x}">${x}</button>`).join("");filters.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;active=b.dataset.filter;filters.querySelectorAll("button").forEach(x=>x.classList.toggle("active",x===b));render()})}
+ if(filters){filters.innerHTML=categories.map((x,i)=>`<button class="filter ${i===0?"active":""}" data-filter="${escapeHTML(x)}">${escapeHTML(x)}</button>`).join("");filters.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;active=b.dataset.filter;filters.querySelectorAll("button").forEach(x=>x.classList.toggle("active",x===b));render()})}
  render();
  const cacheKey="zjy-project-cache-v1",cacheTTL=30*60*1000;
  let cached=null;try{cached=JSON.parse(localStorage.getItem(cacheKey)||"null")}catch{}
