@@ -22,3 +22,5 @@ jobs:
           node-version: 22
       - name: Validate static site
         run: node scripts/validate-site.mjs
+      - name: Test project card metadata escaping
+        run: node scripts/test-project-cards.mjs
