@@ -1,100 +1,161 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#030a11"><meta name="color-scheme" content="dark light">
-  <title>ZJY-HSBL — Software Engineering × Visual Intelligence</title>
-  <meta name="description" content="ZJY-HSBL · Software Engineering · Computer Vision · Intelligent Systems. Research, projects, publications, awards and notes.">
-  <meta name="author" content="ZJY-HSBL"><meta name="keywords" content="ZJY-HSBL, 海生不浪, Software Engineering, Computer Vision, Deep Learning, Medical Imaging, Visual Tracking"><meta property="og:type" content="website">
-  <meta property="og:title" content="ZJY-HSBL — Research & Engineering Portfolio">
-  <meta property="og:description" content="Software Engineering × Visual Intelligence × Intelligent Systems">
-  <meta property="og:url" content="https://zjy-hsbl.github.io/"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="ZJY-HSBL — Research & Engineering Portfolio"><meta name="twitter:description" content="Software Engineering × Visual Intelligence × Intelligent Systems"><link rel="canonical" href="https://zjy-hsbl.github.io/">
-  <link rel="stylesheet" href="styles.css?v=20261010-1">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="manifest" href="/site.webmanifest"><meta name="robots" content="index,follow"><meta property="og:image" content="https://zjy-hsbl.github.io/image/picture.jpg"><meta property="og:image:alt" content="ZJY-HSBL portfolio identity"><meta name="twitter:image" content="https://zjy-hsbl.github.io/image/picture.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","name":"ZJY-HSBL","alternateName":"海生不浪","url":"https://zjy-hsbl.github.io/","sameAs":["https://github.com/ZJY-HSBL","https://www.zhihu.com/people/HSBLZHAOJY"],"knowsAbout":["Software Engineering","Computer Vision","Deep Learning","Medical Imaging","Visual Tracking","Spatiotemporal Learning"]},{"@type":"WebSite","name":"ZJY-HSBL — Research & Engineering Portfolio","url":"https://zjy-hsbl.github.io/","description":"Software Engineering × Visual Intelligence × Intelligent Systems"}]}</script><style id="mobile-hero-hotfix">@media(max-width:720px){.hero-side{display:grid!important;grid-template-columns:96px minmax(0,1fr)!important;column-gap:16px!important;row-gap:0!important;align-items:start!important}.hero-side .avatar{display:block!important;width:96px!important;height:96px!important;min-width:96px!important;max-width:96px!important;min-height:96px!important;max-height:96px!important;object-fit:cover!important;object-position:center!important;grid-column:1!important;grid-row:1!important;align-self:start!important}.hero-side .identity{grid-column:2!important;grid-row:1!important;align-self:start!important;min-height:0!important}.hero-side .focus-line{grid-column:1/-1!important}.hero-side>*{min-width:0!important}}</style></head>
-<body><a class="skip-link" href="#top">Skip to content</a>
-  <canvas id="field" aria-hidden="true"></canvas><div class="sea-glow" aria-hidden="true"></div><div class="progress"></div>
-  <header class="nav-wrap"><nav class="nav">
-    <a class="brand" href="#top"><span class="brand-cn">海生不浪</span><span class="brand-en">ZJY-HSBL</span></a>
-    <div class="nav-links"><a href="research/">Research</a><a href="#projects">Projects</a><a href="publications/">Publications</a><a href="#timeline">Timeline</a><a href="#notes">Notes</a><a href="#about">About</a><button id="themeToggle" class="theme-toggle" aria-label="Switch theme">○</button></div>
-  </nav></header>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <title>ZJY-HSBL — Software Engineering & Visual Intelligence</title>
+  <meta name="description" content="ZJY-HSBL personal academic homepage: software engineering, computer vision, medical imaging, intelligent systems, publications and projects.">
+  <meta name="author" content="ZJY-HSBL">
+  <meta name="keywords" content="ZJY-HSBL, 海生不浪, Software Engineering, Computer Vision, Deep Learning, Medical Imaging">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ZJY-HSBL — Personal Academic Homepage">
+  <meta property="og:description" content="Software Engineering · Visual Intelligence · Intelligent Systems">
+  <meta property="og:url" content="https://zjy-hsbl.github.io/">
+  <meta property="og:image" content="https://zjy-hsbl.github.io/image/picture.jpg">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://zjy-hsbl.github.io/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="home.css?v=20261011-1">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳至正文</a>
+  <div class="top-rule" aria-hidden="true"></div>
 
-  <main id="top">
-    <section class="hero"><div class="horizon"><span></span></div><div class="shell hero-grid">
-      <div class="hero-main">
-        <div class="eyebrow reveal">Research & Engineering Portfolio · 2026</div>
-        <h1 class="hero-name reveal" data-delay="1">海生不浪</h1>
-        <p class="hero-role reveal" data-delay="2">Software Engineering <em>×</em> Visual Intelligence <em>×</em> Intelligent Systems</p>
-        <p class="hero-note reveal" data-delay="3">Software Engineering undergraduate exploring efficient visual intelligence and complete software systems. My work spans medical imaging, visual tracking, spatiotemporal learning, evolutionary optimization and native desktop tools.</p>
-        <div class="hero-actions reveal" data-delay="3"><a class="pill-link" href="https://github.com/ZJY-HSBL" target="_blank" rel="noreferrer">GitHub ↗</a><a class="pill-link" href="#projects">Selected Projects ↓</a></div>
+  <header class="site-header">
+    <div class="shell site-header-inner">
+      <a class="brand" href="#main" aria-label="ZJY-HSBL homepage">
+        <span class="brand-cn">海生不浪</span>
+        <span class="brand-en">ZJY-HSBL · PERSONAL HOMEPAGE</span>
+      </a>
+      <button class="menu-button" id="menuButton" type="button" aria-label="打开导航" aria-expanded="false">☰</button>
+      <nav class="main-nav" id="mainNav" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#research">Research</a>
+        <a href="#publications">Publications</a>
+        <a href="#projects">Projects</a>
+        <a href="#awards">Honors</a>
+        <a href="#notes">Notes</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="about">
+      <div class="shell hero-grid">
+        <aside class="profile-panel reveal">
+          <div class="avatar-frame"><img class="avatar" src="image/picture.jpg" alt="ZJY-HSBL avatar" width="640" height="640"></div>
+          <h2 class="profile-name">海生不浪</h2>
+          <div class="profile-handle">ZJY-HSBL</div>
+          <p class="profile-role">Software Engineering Undergraduate<br>AI / Computer Vision / Intelligent Systems</p>
+          <div class="profile-links">
+            <a href="https://github.com/ZJY-HSBL" target="_blank" rel="noreferrer">GitHub ↗</a>
+            <a href="https://www.zhihu.com/people/HSBLZHAOJY" target="_blank" rel="noreferrer">知乎 ↗</a>
+          </div>
+        </aside>
+
+        <div class="hero-copy reveal">
+          <div class="kicker">Personal Academic Homepage</div>
+          <h1 class="hero-title">Software Engineering<br>&amp; Visual Intelligence<span class="cn">软件工程 · 视觉智能</span></h1>
+          <p class="hero-lead">I am a Software Engineering undergraduate interested in <strong>efficient computer vision, medical image understanding, visual tracking and complete intelligent systems</strong>. I prefer research that can be reproduced, explained and eventually turned into usable software.</p>
+          <div class="focus-row"><span>Research interests</span><p>Computer Vision · Medical Intelligence · Multi-Object Tracking · Efficient Deep Learning · Spatiotemporal Learning</p></div>
+          <div class="focus-row"><span>Engineering</span><p>Python · PyTorch · PyQt6 · Reproducible experiments · End-to-end system implementation</p></div>
+          <div class="hero-actions">
+            <a class="text-link" href="research/">Research map →</a>
+            <a class="text-link" href="publications/">Publication archive →</a>
+          </div>
+        </div>
       </div>
-      <aside class="hero-side reveal" data-delay="2"><img class="avatar" src="image/picture.jpg" alt="ZJY-HSBL avatar" width="640" height="640" decoding="async" fetchpriority="high">
-        <div class="identity"><strong>ZJY-HSBL</strong><span>Software Engineering Undergraduate</span><span>Nanjing · China</span></div>
-        <div class="focus-line"><span>Research</span><b>AI / Computer Vision</b></div><div class="focus-line"><span>Engineering</span><b>Python / Full Systems</b></div>
-      </aside>
-    </div></section>
+    </section>
 
-    <section class="section" id="research"><div class="shell">
-      <div class="section-head reveal"><div class="index">01 / Research</div><div><h2 class="section-title">What I<br>work on.</h2><span class="section-cn">研究方向</span></div></div>
-      <div class="research-grid">
-        <article class="research-card reveal" data-no="01"><h3>Computer Vision</h3><p>Detection, segmentation, multi-object tracking, visual representation and lightweight model design.</p><div class="research-keywords">Detection · Segmentation · MOT · Efficient AI</div></article>
-        <article class="research-card reveal" data-no="02"><h3>Medical Intelligence</h3><p>Medical image understanding, lesion localization, segmentation and quantitative visual analysis.</p><div class="research-keywords">MRI · X-ray · Detection · Segmentation</div></article>
-        <article class="research-card reveal" data-no="03"><h3>Spatiotemporal Learning</h3><p>Dynamic graphs, state-space modeling, traffic forecasting and structured decision algorithms.</p><div class="research-keywords">Dynamic Graph · Forecasting · SSM · Decision</div></article>
+    <section class="content-section" id="research">
+      <div class="shell section-grid">
+        <div class="section-label reveal"><span class="num">01</span><h2>Research</h2><span class="cn">研究方向</span></div>
+        <div class="section-body reveal">
+          <p class="section-intro">Current work centers on practical visual intelligence: strong task performance matters, but so do computational cost, reproducibility, deployability and the engineering path from model to system.</p>
+          <div class="research-list">
+            <article class="research-item"><span class="idx">01</span><h3>Computer Vision</h3><p>Object detection, segmentation, visual tracking, multi-object tracking and lightweight model design.</p></article>
+            <article class="research-item"><span class="idx">02</span><h3>Medical Intelligence</h3><p>Medical image understanding, lesion localization, fracture analysis and quantitative visual workflows.</p></article>
+            <article class="research-item"><span class="idx">03</span><h3>Spatiotemporal Learning</h3><p>Dynamic graphs, temporal representation, traffic forecasting and structured prediction.</p></article>
+            <article class="research-item"><span class="idx">04</span><h3>Software Systems</h3><p>Desktop tools and complete systems that turn algorithms into maintainable software products.</p></article>
+          </div>
+          <div class="more-line"><a class="text-link" href="research/">View research graph →</a></div>
+        </div>
       </div>
-    </div></section>
+    </section>
 
-    <section class="section" id="projects"><div class="shell">
-      <div class="section-head reveal"><div class="index">02 / Projects</div><div><h2 class="section-title">Selected<br>projects.</h2><span class="section-cn">代表性项目 · GitHub 实时信息</span></div></div>
-      <div class="project-toolbar reveal"><div class="filters" id="projectFilters"></div><span id="syncStatus">Loading GitHub repositories…</span></div>
-      <div class="project-grid" id="projectGrid" aria-live="polite"></div>
-      <div class="project-more reveal"><a href="https://github.com/ZJY-HSBL?tab=repositories" target="_blank" rel="noreferrer">Explore all repositories ↗</a></div>
-    </div></section>
-
-    <section class="section" id="publications"><div class="shell">
-      <div class="section-head reveal"><div class="index">03 / Publications</div><div><h2 class="section-title">Selected<br>works.</h2><span class="section-cn">代表性学术成果</span></div></div>
-      <div class="publications">
-        <a class="pub reveal" href="https://doi.org/10.1007/s11760-025-04731-2" target="_blank" rel="noreferrer"><span class="pub-num">001</span><span class="pub-badge">SCI</span><div class="pub-copy"><h3>SNEIF-YOLO11: A Lightweight Real-Time Framework for Fighting Behavior Detection</h3><span class="pub-meta">Signal, Image and Video Processing · 2025</span></div><span class="pub-arrow">↗</span></a>
-        <a class="pub reveal" href="https://doi.org/10.1007/s11760-026-05303-8" target="_blank" rel="noreferrer"><span class="pub-num">002</span><span class="pub-badge">SCI</span><div class="pub-copy"><h3>ABCP-YOLO11: An Attention-Enhanced Framework for Intelligent Fracture Detection</h3><span class="pub-meta">Signal, Image and Video Processing · 2026</span></div><span class="pub-arrow">↗</span></a>
-        <a class="pub reveal" href="https://doi.org/10.1109/ISPP69262.2026.11542983" target="_blank" rel="noreferrer"><span class="pub-num">003</span><span class="pub-badge">EI</span><div class="pub-copy"><h3>Efficient Multi-Object Tracking in Traffic Surveillance based on Adaptive FairMot and Low-Confidence Matching</h3><span class="pub-meta">ISPP 2026 · IEEE</span></div><span class="pub-arrow">↗</span></a>
-        <a class="pub reveal" href="https://doi.org/10.1109/GAIIS69281.2026.11519106" target="_blank" rel="noreferrer"><span class="pub-num">004</span><span class="pub-badge">EI</span><div class="pub-copy"><h3>A Lightweight Face Detection Framework Based on ShuffleNet and Coordinate Attention</h3><span class="pub-meta">GAIIS 2026 · IEEE</span></div><span class="pub-arrow">↗</span></a>
-      <div class="project-more reveal"><a href="publications/">View publication archive →</a></div></div>
-    </div></section>
-
-    <section class="section" id="awards"><div class="shell">
-      <div class="section-head reveal"><div class="index">04 / Awards</div><div><h2 class="section-title">Selected<br>honors.</h2><span class="section-cn">竞赛与荣誉</span></div></div>
-      <div class="award-grid">
-        <article class="award-feature reveal"><span>National · 2025</span><strong>二等奖</strong><h3>高教社杯全国大学生数学建模竞赛</h3><p>本科组 · Team Award</p></article>
-        <div class="award-list reveal"><div><b>省级二等奖</b><span>江苏省高等学校第二十三届高等数学竞赛</span></div><div><b>全国三等奖</b><span>第十七届全国大学生数学竞赛</span></div><div><b>省级三等奖</b><span>第十九届“挑战杯”江苏省选拔赛</span></div><div><b>省级三等奖</b><span>第十六届蓝桥杯江苏赛区</span></div><div><b>省级三等奖</b><span>江苏省大学生计算机设计大赛</span></div><div><b>省级三等奖</b><span>江苏省大学生机器人大赛</span></div></div>
+    <section class="content-section" id="publications">
+      <div class="shell section-grid">
+        <div class="section-label reveal"><span class="num">02</span><h2>Publications</h2><span class="cn">代表性成果</span></div>
+        <div class="section-body reveal">
+          <div class="pub-list">
+            <a class="pub-item" href="https://doi.org/10.1007/s11760-026-05303-8" target="_blank" rel="noreferrer"><span class="pub-year">2026</span><div><h3 class="pub-title">ABCP-YOLO11: An Attention-Enhanced Framework for Intelligent Fracture Detection</h3><span class="pub-meta">Signal, Image and Video Processing · SCI</span></div><span class="pub-arrow">↗</span></a>
+            <a class="pub-item" href="https://doi.org/10.1109/ISPP69262.2026.11542983" target="_blank" rel="noreferrer"><span class="pub-year">2026</span><div><h3 class="pub-title">Efficient Multi-Object Tracking in Traffic Surveillance based on Adaptive FairMot and Low-Confidence Matching</h3><span class="pub-meta">ISPP 2026 · IEEE · EI</span></div><span class="pub-arrow">↗</span></a>
+            <a class="pub-item" href="https://doi.org/10.1109/GAIIS69281.2026.11519106" target="_blank" rel="noreferrer"><span class="pub-year">2026</span><div><h3 class="pub-title">A Lightweight Face Detection Framework Based on ShuffleNet and Coordinate Attention</h3><span class="pub-meta">GAIIS 2026 · IEEE · EI</span></div><span class="pub-arrow">↗</span></a>
+            <a class="pub-item" href="https://doi.org/10.1007/s11760-025-04731-2" target="_blank" rel="noreferrer"><span class="pub-year">2025</span><div><h3 class="pub-title">SNEIF-YOLO11: A Lightweight Real-Time Framework for Fighting Behavior Detection</h3><span class="pub-meta">Signal, Image and Video Processing · SCI</span></div><span class="pub-arrow">↗</span></a>
+          </div>
+          <div class="more-line"><a class="text-link" href="publications/">All publications →</a></div>
+        </div>
       </div>
-    </div></section>
+    </section>
 
-
-    <section class="section" id="timeline"><div class="shell">
-      <div class="section-head reveal"><div class="index">05 / Timeline</div><div><h2 class="section-title">Research<br>timeline.</h2><span class="section-cn">研究与成长轨迹</span></div></div>
-      <div class="timeline">
-        <article class="timeline-item reveal"><time>2026</time><div><span>Engineering · Open Source</span><h3>Desktop software and reproducible optimization</h3><p>Iterduca, FolderBox and Vitrunda explore practical Windows experiences, while BoundEvo connects numerical optimization with reproducible experiments.</p><div class="timeline-links"><a href="https://github.com/ZJY-HSBL/Iterduca" target="_blank" rel="noreferrer">Iterduca ↗</a><a href="https://github.com/ZJY-HSBL/FolderBox" target="_blank" rel="noreferrer">FolderBox ↗</a><a href="https://github.com/ZJY-HSBL/Vitrunda" target="_blank" rel="noreferrer">Vitrunda ↗</a><a href="https://github.com/ZJY-HSBL/BoundEvo" target="_blank" rel="noreferrer">BoundEvo ↗</a></div></div></article>
-        <article class="timeline-item reveal"><time>2026</time><div><span>Research · Medical AI</span><h3>Medical imaging research expands into complete systems</h3><p>Continued work on fracture and lesion intelligence while developing ScolioVision as a modular imaging-analysis and rehabilitation interaction system.</p><a href="projects/scoliovision/">View ScolioVision →</a></div></article>
-        <article class="timeline-item reveal"><time>2026</time><div><span>Research · Visual Intelligence</span><h3>Tracking, segmentation and spatiotemporal learning</h3><p>NexaTrack, SAGE-Seg and DynaFlux extend the research portfolio beyond object detection into tracking, semi-supervised segmentation and dynamic-graph forecasting.</p><div class="timeline-links"><a href="projects/nexatrack/">NexaTrack →</a><a href="projects/sage-seg/">SAGE-Seg →</a><a href="projects/dynaflux/">DynaFlux →</a></div></div></article>
-        <article class="timeline-item reveal"><time>2026</time><div><span>Publication · IEEE</span><h3>Traffic multi-object tracking and lightweight face detection</h3><p>Two engineering-oriented computer-vision works appear in IEEE conference proceedings, covering traffic surveillance tracking and lightweight face detection.</p></div></article>
-        <article class="timeline-item reveal"><time>2025</time><div><span>Publication · SCI</span><h3>Lightweight real-time fighting behavior detection</h3><p>SNEIF-YOLO11 is published in Signal, Image and Video Processing, focusing on efficient visual behavior detection.</p><a href="https://doi.org/10.1007/s11760-025-04731-2" target="_blank" rel="noreferrer">Publication ↗</a></div></article>
-        <article class="timeline-item reveal"><time>2025</time><div><span>Competition · National</span><h3>National Mathematical Modeling Competition — Second Prize</h3><p>Received the national second prize in the undergraduate division of the CUMCM.</p></div></article>
-        <article class="timeline-item reveal"><time>2023</time><div><span>Education · Software Engineering</span><h3>Started undergraduate study in Software Engineering</h3><p>Software engineering became the foundation for later work in deep learning, computer vision and complete intelligent systems.</p></div></article>
+    <section class="content-section" id="projects">
+      <div class="shell section-grid">
+        <div class="section-label reveal"><span class="num">03</span><h2>Projects</h2><span class="cn">项目与开源</span></div>
+        <div class="section-body reveal">
+          <p class="section-intro">Selected research and engineering repositories. GitHub metadata is loaded when available; the page remains fully usable without the API.</p>
+          <div class="project-toolbar"><div class="filters" id="projectFilters"></div><span id="syncStatus">Loading project index…</span></div>
+          <div class="project-grid" id="projectGrid" aria-live="polite"></div>
+          <div class="more-line"><a class="text-link" href="https://github.com/ZJY-HSBL?tab=repositories" target="_blank" rel="noreferrer">All repositories ↗</a></div>
+        </div>
       </div>
-    </div></section>
+    </section>
 
-    <section class="section" id="notes"><div class="shell">
-      <div class="section-head reveal"><div class="index">06 / Notes</div><div><h2 class="section-title">Notes &<br>knowledge.</h2><span class="section-cn">学习记录与知识库</span></div></div>
-      <div class="notes-grid">
-        <a class="note-card reveal" href="https://github.com/ZJY-HSBL/Algorithm-Learning" target="_blank" rel="noreferrer"><span>Algorithms</span><h3>Algorithm Learning</h3><p>算法笔记、LeetCode 题单与持续学习记录。</p><i>Open repository ↗</i></a>
-        <a class="note-card reveal" href="https://github.com/ZJY-HSBL/Python-Learning" target="_blank" rel="noreferrer"><span>Python</span><h3>Python Learning</h3><p>Python 学习记录与程序设计竞赛资料。</p><i>Open repository ↗</i></a>
-        <a class="note-card reveal" href="https://github.com/ZJY-HSBL/Final-Exam-Review" target="_blank" rel="noreferrer"><span>University</span><h3>Final Exam Review</h3><p>本科课程期末复习知识点与题库整理。</p><i>Open repository ↗</i></a>
+    <section class="content-section" id="awards">
+      <div class="shell section-grid">
+        <div class="section-label reveal"><span class="num">04</span><h2>Honors</h2><span class="cn">竞赛与荣誉</span></div>
+        <div class="section-body reveal">
+          <div class="award-list">
+            <div class="award-row"><time>2025</time><strong>国家级二等奖</strong><span>高教社杯全国大学生数学建模竞赛 · 本科组</span></div>
+            <div class="award-row"><time>2025</time><strong>全国三等奖</strong><span>第十七届全国大学生数学竞赛</span></div>
+            <div class="award-row"><time>2025</time><strong>省级三等奖</strong><span>第十九届“挑战杯”江苏省选拔赛</span></div>
+            <div class="award-row"><time>2025</time><strong>省级三等奖</strong><span>第十六届蓝桥杯江苏赛区</span></div>
+            <div class="award-row"><time>2025</time><strong>省级三等奖</strong><span>江苏省大学生计算机设计大赛 / 江苏省大学生机器人大赛</span></div>
+          </div>
+        </div>
       </div>
-    </div></section>
+    </section>
 
-    <section class="section about" id="about"><div class="shell about-grid">
-      <div class="section-head reveal"><div class="index">07 / About</div><div><h2 class="section-title">Build.<br>Study. Iterate.</h2><span class="section-cn">关于我</span></div></div>
-      <div class="about-copy reveal"><p>I study Software Engineering and build research-oriented software at the intersection of deep learning and practical engineering. My primary focus is computer vision, with ongoing work in medical imaging, multi-object tracking and desktop systems.</p><p>I approach research code as software that should remain understandable, reproducible and usable. I prefer working end-to-end systems, explicit module boundaries and evidence-driven complexity over one-off experimental code.</p><div class="about-links"><a href="https://github.com/ZJY-HSBL" target="_blank" rel="noreferrer">GitHub · ZJY-HSBL ↗</a><a href="https://www.zhihu.com/people/HSBLZHAOJY" target="_blank" rel="noreferrer">知乎 · 海生不浪 ↗</a></div></div>
-    </div></section>
+    <section class="content-section" id="notes">
+      <div class="shell section-grid">
+        <div class="section-label reveal"><span class="num">05</span><h2>Notes</h2><span class="cn">学习记录</span></div>
+        <div class="section-body reveal">
+          <div class="notes-grid">
+            <a class="note-link" href="https://github.com/ZJY-HSBL/Algorithm-Learning" target="_blank" rel="noreferrer"><span>Algorithms</span><h3>Algorithm Learning</h3><p>算法、题目与持续学习记录。</p></a>
+            <a class="note-link" href="https://github.com/ZJY-HSBL/Python-Learning" target="_blank" rel="noreferrer"><span>Python</span><h3>Python Learning</h3><p>Python 学习与程序设计资料。</p></a>
+            <a class="note-link" href="https://github.com/ZJY-HSBL/Final-Exam-Review" target="_blank" rel="noreferrer"><span>University</span><h3>Final Exam Review</h3><p>本科课程复习知识点与资料整理。</p></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="shell section-grid">
+        <div class="section-label reveal"><span class="num">06</span><h2>About</h2><span class="cn">关于本站</span></div>
+        <div class="section-body about-copy reveal">
+          <p>This site is intentionally kept simple. It is a personal academic homepage rather than a dashboard: research, publications and projects are the content; visual effects stay secondary.</p>
+          <p>中文信息与英文研究条目并置，整体使用低饱和紫色作为识别色，保持轻量、清晰和长期可维护。</p>
+          <div class="about-links"><a class="text-link" href="https://github.com/ZJY-HSBL" target="_blank" rel="noreferrer">GitHub ↗</a><a class="text-link" href="https://www.zhihu.com/people/HSBLZHAOJY" target="_blank" rel="noreferrer">Zhihu ↗</a></div>
+        </div>
+      </div>
+    </section>
   </main>
-  <footer class="footer"><div class="shell footer-inner"><span>© 2026 ZJY-HSBL</span><span>海生不浪</span><span>Research & Engineering Portfolio</span></div></footer>
-  <script src="projects.js?v=20261010-1" defer></script><script src="app.js?v=20261010-1" defer></script>
-<script src="navigation.js?v=20261010-1" defer></script></body></html>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner"><span class="footer-mark">ZJY-HSBL · 海生不浪</span><span>Software Engineering · Visual Intelligence</span><span>© 2026</span></div>
+  </footer>
+  <script src="projects.js?v=20261010-1" defer></script>
+  <script src="home.js?v=20261011-1" defer></script>
+</body>
+</html>
